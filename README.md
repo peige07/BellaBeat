@@ -445,7 +445,7 @@ Based on the data and analysis performed several trends were able to be identifi
 
 The first trend we were able to identify was that 81.8% of users were considered “Active” users meaning that they wore their FitBit between 27 and 31 days of the 31-day tracked period. Due to the active category likely indicating successful adoptions of the fitness device, we can extrapolate that we should gear our marketing campaigns toward a similar audience.
 
-The next trend we were able to observe was that users took the least amount of steps on Sundays and Fridays. This information could be used by Bellabeats marketing team to create an awareness campaign aimed at getting people to move more on these low-step days and the potential benefits taking an extra 2,000 steps each of these days could have on someone's over all health.
+The next trend we were able to observe was that users took the least amount of steps on Sundays and Fridays. This information could be used by Bellabeats marketing team to create an awareness campaign aimed at getting people to move more on these low-step days and the potential benefits taking an extra 2,000 steps each of these days could have on someone's overall health.
 
 The last trend we were able to observe based on the data was that 51% of users were considered to be sedentary or low active according to information from the NHS website. This information could easily be used to create marketing materials aimed at potential users who believe they fall into these categories and educate them on the negative consequences that can come from living a low-activity lifestyle and ultimately how BellaBeats products can help them make better data-driven decisions.
 
