@@ -437,6 +437,8 @@ After completing the SQL queries, uploading CSV files into sheets & completing v
 
 [Tableau Dashboard](https://public.tableau.com/app/profile/peige.malys/viz/GoogleDataAnalyticsBellaBeatCapstoneDashboard/Dashboard1)
 
+![Screenshot 2023-07-04 122918](https://github.com/peige07/BellaBeat/assets/136380370/4ce6ab5b-291a-4a25-bfb5-d1231eb783a9)
+
 
 ### 7. Act Phase
 #### _a. Final Conclusions & Recommendations_
