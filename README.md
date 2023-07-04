@@ -188,7 +188,7 @@ How often did each unique Id use/wear their fitbit?
 	FROM `clean-athlete-388418.bellabeats.dailyactivity`
 	GROUP BY Id
 
-[Resulting table generated](https://docs.google.com/spreadsheets/d/1TLA8PGj6xoouE0aFrDxnotu--e7O6jzuEbGh3x1W33U/edit?usp=sharing), CSV uploaded into Sheets, and named "Daily Usage".
+[Resulting table generated](https://docs.google.com/spreadsheets/d/1XlKgC4iiuuXQkT3W9Nfw5qQ9E4eUgmCNeycsrfr1PPc/edit?usp=sharing), CSV uploaded into Sheets, and named "Daily Usage".
 
 Next, I wanted to categorize each user based on how often they wore their FitBit, to do this I created 3 separate categories:
 
@@ -208,6 +208,253 @@ _Light Users-_ Wore their tracker for between 0 and 21 days
 	GROUP BY Id
 	ORDER BY Total_Logged_Uses DESC
 
-[Resulting table generated](https://docs.google.com/spreadsheets/d/1TLA8PGj6xoouE0aFrDxnotu--e7O6jzuEbGh3x1W33U/edit?usp=sharing), CSV uploaded into Sheets and named "Usage Level".
+[Resulting table generated](https://docs.google.com/spreadsheets/d/1XlKgC4iiuuXQkT3W9Nfw5qQ9E4eUgmCNeycsrfr1PPc/edit?usp=sharing), CSV uploaded into Sheets and named "Usage Level".
 
-[Users In Each Category](https://storage.googleapis.com/kagglesdsdata/datasets/3463543/6053632/Level%20Of%20FitBit%20Usage%20In%20Each%20Category.png?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=gcp-kaggle-com%40kaggle-161607.iam.gserviceaccount.com%2F20230629%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20230629T161209Z&X-Goog-Expires=259200&X-Goog-SignedHeaders=host&X-Goog-Signature=1497b46bcb6af8e4e97f074a2f863124b5dc74b0e325689826fd3149b11ce3f0b775d99d01866aeb3e7b20bc38302bd3a26b249844e8f9a8dc950fdfa00a202f4d5ba61bc83a4fced6be8ce5d7dcaa5d8cc531b37cd98d0307fd1f486dddbf709a4d0f010669bd552a1dde9adc381c1e461d0f117a38277405a0a1c4cfe3b343d6909b48b5c3a3d4ccd5533b52976fd357397069ae52421350153083675919c7f420b7d90db9f38f505bfe3f438e52fef17a2d6211b1911878fd56b629b9da8035659e7fc0277e28561977792cebf079e98cd9d4296ae30c70e43c3cb2398fe6d768322b3e5b4a1b43f0b9341a58817969e038f6a33fd9bdc1aec034a3559097)
+![Level Of FitBit Usage In Each Category (2)](https://github.com/peige07/BellaBeat/assets/136380370/218cc831-477e-4aa6-a4f9-29e98455968d)
+
+
+Next, I wanted to identify the MIN, MAX, and AVG of the data for totalsteps, totaldistance, calories, and activity level for each id.
+
+**Query performed:**
+
+	SELECT Id,
+	MIN(TotalSteps) AS Min_Total_Steps,
+	MAX(TotalSteps) AS Max_Total_Steps,
+	AVG(TotalSteps) AS Avg_Total_Stpes,
+	MIN(TotalDistance) AS Min_Total_Distance,
+	MAX(TotalDistance) AS Max_Total_Distance,
+	AVG(TotalDistance) AS Avg_Total_Distance,
+	MIN(Calories) AS Min_Total_Calories,
+	MAX(Calories) AS Max_Total_Calories,
+	AVG(Calories) AS Avg_Total_Calories,
+	MIN(VeryActiveMinutes) AS Min_Very_Active_Minutes,
+	MAX(VeryActiveMinutes) AS Max_Very_Active_Minutes,
+	AVG(VeryActiveMinutes) AS Avg_Very_Active_Minutes,
+	MIN(FairlyActiveMinutes) AS Min_Fairly_Active_Minutes,
+	MAX(FairlyActiveMinutes) AS Max_Fairly_Active_Minutes,
+	AVG(FairlyActiveMinutes) AS Avg_Fairly_Active_Minutes,
+	MIN(LightlyActiveMinutes) AS Min_Lightly_Active_Minutes,
+	MAX(LightlyActiveMinutes) AS Max_Lightly_Active_Minutes,
+	AVG(LightlyActiveMinutes) AS Avg_Lightly_Active_Minutes,
+	MIN(SedentaryMinutes) AS Min_Sedentary_Minutes,
+	MAX(SedentaryMinutes) AS Max_Sedentary_Minutes,
+	AVG(SedentaryMinutes) AS Avg_Sedentary_Minutes
+	From `clean-athlete-388418.bellabeats.dailyactivity`
+	GROUP BY Id
+	ORDER BY Id
+
+[Resulting table generated](https://docs.google.com/spreadsheets/d/1XlKgC4iiuuXQkT3W9Nfw5qQ9E4eUgmCNeycsrfr1PPc/edit?usp=sharing), CSV uploaded into Sheets and named "MIN, MAX, AVG".
+ 
+**Data Insight:** This data showed us each unique id’s average steps, distance, calories, and activity minutes. From this data we are able to draw several meaningful conclusions such as those who are more active each day tend to have higher total steps
+
+![Correlation Between Activity Minutes and Total Steps (2)](https://github.com/peige07/BellaBeat/assets/136380370/4732bb74-c1e7-419a-bd63-6e5a787fb4df)
+
+
+Now I wanted to take a look at which days of the week users appeared to be the most active.
+
+**Query performed:**
+
+	SELECT Id, ActivityDate,
+	AVG(VeryActiveMinutes) AS Avg_Very_Active_Minutes,
+	AVG(FairlyActiveMinutes) AS Avg_Fairly_Active_Minutes,
+	AVG(LightlyActiveMinutes) AS Avg_Lightly_Active_Minutes,
+	AVG(SedentaryMinutes) AS Avg_Sedentary_Minutes
+	From `clean-athlete-388418.bellabeats.dailyactivity`
+	GROUP BY Id, ActivityDate
+	ORDER BY ActivityDate
+
+[Resulting table generated](https://docs.google.com/spreadsheets/d/1XlKgC4iiuuXQkT3W9Nfw5qQ9E4eUgmCNeycsrfr1PPc/edit?usp=sharing), CSV uploaded into Sheets and named "Average Activity Level".
+
+![Activity Level Based On Day Of Week (2)](https://github.com/peige07/BellaBeat/assets/136380370/d3368cce-0990-4df7-8d17-f6d571c0ed99)
+
+
+Finally, I wanted to determine which days of the week users took the most steps.
+
+**Query Performed:**
+
+	SELECT ActivityDay,
+	AVG(StepTotal) AS Average_Total_Steps
+	FROM clean-athlete-388418.bellabeats.dailysteps
+	GROUP BY ActivityDay
+	ORDER BY ActivityDay;
+
+[Resulting table generated](https://docs.google.com/spreadsheets/d/1XlKgC4iiuuXQkT3W9Nfw5qQ9E4eUgmCNeycsrfr1PPc/edit?usp=sharing), CSV uploaded into Sheets and named "Steps Per Day Of Week".
+
+**Data Insights:** The data shows that on average users took the most steps on Saturday, Tuesday and Thursday while taking the least amount of steps on Sundays.
+
+![Average_Total_Steps vs  ActivityDay (2)](https://github.com/peige07/BellaBeat/assets/136380370/90a8fdbc-3131-48ab-bbf2-01073bfe095f)
+
+
+#### _d. Active Minutes Per User_
+
+The CDC recommends getting at least 150 minutes of cardio in each week, we will be using the activity level of each user to determine if they are meeting this recommendation.
+
+**Query Performed:**
+
+	SELECT Id,
+	avg(VeryActiveMinutes) + avg(FairlyActiveMinutes) + avg(LightlyActiveMinutes) AS Total_Avg_Active_Minutes,
+	CASE
+	WHEN avg(VeryActiveMinutes) + avg(FairlyActiveMinutes) + avg(LightlyActiveMinutes) >= 150 THEN 'Meets CDC Recommendation'
+	WHEN avg(VeryActiveMinutes) + avg(FairlyActiveMinutes) + avg(LightlyActiveMinutes) < 150 THEN 'Does NOT Meet CDC Recommendation'
+	END CDC_Recommendation
+	From `clean-athlete-388418.bellabeats.dailyactivity`
+	GROUP BY Id
+
+[Resulting table generated](https://docs.google.com/spreadsheets/d/1XlKgC4iiuuXQkT3W9Nfw5qQ9E4eUgmCNeycsrfr1PPc/edit?usp=sharing), CSV uploaded into Sheets and named "CDC Activity Rec".
+
+**Data Insights:** Out of the 33 total users 27 were found to have been active for at least 150 minutes per week while 6 were active for less than 150 minutes per week.
+
+![CDC Recommendation Met (2)](https://github.com/peige07/BellaBeat/assets/136380370/d1db4484-43b8-4b5f-99f9-336dce7391f0)
+
+
+Next, I wanted to determine how many of our users would meet the CDC activity recommendation if we removed the category of LightActiveMinutes from out calculation.
+
+**Query Performed:**
+
+	SELECT Id,
+	SUM(VeryActiveMinutes + FairlyActiveMinutes) AS Total_Avg_Active_Minutes,
+	CASE
+	WHEN SUM(VeryActiveMinutes + FairlyActiveMinutes) >= 150 THEN 'Meets CDC Recommendation'
+	WHEN SUM(VeryActiveMinutes + FairlyActiveMinutes) <150 THEN 'Does Not Meet CDC Recommendation'
+	END CDC_Recommendations
+	FROM `clean-athlete-388418.bellabeats.dailyactivity`
+	WHERE ActivityDate BETWEEN '2016-05-01' AND '2016-05-08'
+	GROUP BY Id
+
+[Resulting table generated](https://docs.google.com/spreadsheets/d/1XlKgC4iiuuXQkT3W9Nfw5qQ9E4eUgmCNeycsrfr1PPc/edit?usp=sharing), CSV uploaded into Sheets and named "Very Active + Active".
+
+**Data Insights:** The results of this query indicated that when removing LightActiveMinutes now only 22 out of 33 users met the CDC’s recommendation of being active for 150 minutes or more per week.
+
+![CDC Recommendation Met Based ON Very Active + Active Minutes (2)](https://github.com/peige07/BellaBeat/assets/136380370/2405cc70-fa82-43cb-984d-836b2f200c44)
+
+#### _e. Steps Per Day Per User_
+
+We will use information from [1000steps.org]((http://www.10000steps.org) to determine how active each user was based on their steps per day, each user will fall into one of the following categories:
+
+**Sedentary** is less than 5,000 steps per day
+**Low active** is 5,000 to 7,499 steps per day
+**Somewhat active** is 7,500 to 9,999 steps per day
+**Active** is 10,000 to 12,299 steps per day
+**Highly active** is more than 12,500
+
+**Query Performed:**
+	
+ 	SELECT Id,
+	AVG(totalsteps) AS `Average Total Steps`,
+	CASE
+	WHEN AVG(TotalSteps) < 5000 THEN 'Sedentary'
+	WHEN AVG(TotalSteps) BETWEEN 5000 AND 7499 THEN 'Low Active'
+	WHEN AVG(TotalSteps) BETWEEN 7500 AND 9999 THEN 'Somewhat Active'
+	WHEN AVG(TotalSteps) BETWEEN 10000 AND 12499 THEN 'Active'
+	WHEN AVG(TotalSteps) >= 12500 THEN 'Highly Active'
+	END AS Activity_Level
+	FROM `clean-athlete-388418.bellabeats.dailyactivity`
+	GROUP BY Id
+	ORDER BY Activity_Level;
+
+[Resulting table generated](https://docs.google.com/spreadsheets/d/1XlKgC4iiuuXQkT3W9Nfw5qQ9E4eUgmCNeycsrfr1PPc/edit?usp=sharing), CSV uploaded into Sheets and named "Average Steps".
+
+**Data Insight:** The query and accompanying visualization indicates that only 7 out of 33 users were considered active or highly active.
+
+_The data breaks down into the following categories:_
+
+	Sedentary - 8
+	Low active - 9
+	Somewhat active- 9
+	Active - 5
+	Highly active - 2
+ 
+![Users Activity Based On Steps Per Day (2)](https://github.com/peige07/BellaBeat/assets/136380370/9de74740-780a-42fb-8293-13c2190dbe17)
+
+
+#### _f. Calories Consumed Per Day Per User_
+
+Now I wanted to determine how many calories per day each user was consuming. According to [NHS](https://www.nhs.uk/common-health-questions/food-and-diet/what-should-my-daily-intake-of-calories-be/#:~:text=An%20ideal%20daily%20intake%20of,women%20and%202%2C500%20for%20men.) generally, the recommendation for daily calories is 2,000 for women and 2,500 for men.
+
+**Query performed:**
+
+	SELECT Id,
+	AVG(Calories) AS `Average Calories Per Day`,
+	FROM `clean-athlete-388418.bellabeats.dailyactivity`
+	GROUP BY Id
+	
+ [Resulting table generated](https://docs.google.com/spreadsheets/d/1XlKgC4iiuuXQkT3W9Nfw5qQ9E4eUgmCNeycsrfr1PPc/edit?usp=sharing), CSV uploaded into Sheets and named "Calories Per Day".
+
+**Data Insight:** According to our data on average each user consumed 2,282 calories. Due to the limitations of our data not providing sex as a variable we cannot determine if the average user is consuming the proper amount of calories.
+
+![Average Calories Per Day (2)](https://github.com/peige07/BellaBeat/assets/136380370/b0565102-ad13-42e0-bdd3-9fc6a57023f1)
+
+
+Next, I categorized each user by the amount of calories they were consuming on average each day.
+
+_Categories assigned:_
+
+**Not Enough** - < 2000
+**Enough** - Between 2000 AND 2500
+**Too Much** - >2500
+
+**Query Performed:**
+
+	SELECT Id,
+	AVG(Calories) AS `Average Calories Per Day`,
+	CASE
+	WHEN AVG(Calories) < 2000 THEN 'Not Enough'
+	WHEN AVG(Calories) BETWEEN 2000 AND 2500 THEN 'Enough'
+	WHEN AVG(Calories) > 2500 THEN 'To Much'
+	END AS Daily_Caloric_Intake
+	FROM `clean-athlete-388418.bellabeats.dailyactivity`
+	GROUP BY Id
+
+[Resulting table generated](https://docs.google.com/spreadsheets/d/1XlKgC4iiuuXQkT3W9Nfw5qQ9E4eUgmCNeycsrfr1PPc/edit?usp=sharing), CSV uploaded into Sheets and named "Daily Caloric Intake".
+
+**Data Insight:** According to the data 12 out of 33 users are consuming more calories per day than recommended.
+
+![Daily Caloric Intake (2)](https://github.com/peige07/BellaBeat/assets/136380370/a1d7573e-1272-4a08-9c1a-751cb50f0388)
+
+
+Finally, I wanted to practice using the INNER JOIN clause so I combined the dailyacitivty table and the sleep day table.
+
+**Query Performed:**
+
+	SELECT da.id, sd.id,
+	AVG(da.TotalSteps) AS AvgTotalSteps,
+	AVG(da.Calories) AS AvgCalories,
+	AVG(sd.TotalTimeInBed) AS AvgTotalMinutesAsleep
+	FROM `clean-athlete-388418.bellabeats.dailyactivity` AS da
+	INNER JOIN `clean-athlete-388418.bellabeats.sleepday` AS sd ON da.id = sd.id
+	GROUP BY da.id, sd.id;
+
+[Resulting table generated](https://docs.google.com/spreadsheets/d/1XlKgC4iiuuXQkT3W9Nfw5qQ9E4eUgmCNeycsrfr1PPc/edit?usp=sharing), CSV uploaded into Sheets and named "Id, Steps, Calories, Asleep".
+
+**Data Insight:** The data shows a correlation between average calories consumed and average steps per day.
+
+![Calories Consumed Vs  Steps Taken (2)](https://github.com/peige07/BellaBeat/assets/136380370/bce75d51-c3c5-46a3-8603-043f50b2f56d)
+
+
+### 6. Share Phase / Visualizations With Tableau
+
+After completing the SQL queries, uploading CSV files into sheets & completing visualizations for several tables I wanted to practice making a dashboard inside of Tableau to tell the story of the data.
+
+[Tableau Dashboard](https://public.tableau.com/app/profile/peige.malys/viz/GoogleDataAnalyticsBellaBeatCapstoneDashboard/Dashboard1)
+
+
+### 7. Act Phase
+#### _a. Final Conclusions & Recommendations_
+
+Based on the data and analysis performed several trends were able to be identified that could prove useful when addressing the business task of “Analyzing the data the FitBit Fitness Tracker Data to gain insight into how people are using their devices, in order to identify trends that can be used in Bellabeats marketing strategy.”
+
+The first trend we were able to identify was that 81.8% of users were considered “Active” users meaning that they wore their FitBit between 27 and 31 days of the 31-day tracked period. Due to the active category likely indicating successful adoptions of the fitness device, we can extrapolate that we should gear our marketing campaigns toward a similar audience.
+
+The next trend we were able to observe was that users took the least amount of steps on Sundays and Fridays. This information could be used by Bellabeats marketing team to create an awareness campaign aimed at getting people to move more on these low-step days and the potential benefits taking an extra 2,000 steps each of these days could have on someone's over all health.
+
+The last trend we were able to observe based on the data was that 51% of users were considered to be sedentary or low active according to information from the NHS website. This information could easily be used to create marketing materials aimed at potential users who believe they fall into these categories and educate them on the negative consequences that can come from living a low-activity lifestyle and ultimately how BellaBeats products can help them make better data-driven decisions.
+
+Overall there are several more conclusions that can be drawn from the data and analysis that were performed depending on what specific questions that need to be answered.
+
+#### _b. Closing Thoughts_
+
+Theoretically, we can draw some general ideas and trends from this data, it is my personal belief that there are far too many limitations to the data set provided to be used for any marketing campaign.
+
+First, this data set did not include demographic information, which is hugely problematic for Bellabeats since their target audience is assumingly female.
+
+Second, there were simply not enough users to draw a meaningful conclusion that could be representative of an entire population.
